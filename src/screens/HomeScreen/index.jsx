@@ -22,6 +22,7 @@ export default function HomeScreen() {
             <MapDescription>Consulte o mapa para saber se voce esta em uma area de risco</MapDescription>
             <Map style={styles.map}/>
         </MapContainer>
+        <View><Text>Teste</Text></View>
       </Container>
   );
 }
