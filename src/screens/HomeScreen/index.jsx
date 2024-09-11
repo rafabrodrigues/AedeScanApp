@@ -23,6 +23,7 @@ export default function HomeScreen() {
             <Map style={styles.map}/>
         </MapContainer>
         <View><Text>Teste</Text></View>
+        <Text>Teste2</Text>
       </Container>
   );
 }
