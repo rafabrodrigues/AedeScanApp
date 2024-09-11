@@ -34,7 +34,9 @@ export const Placeholder = styled.Text`
     top: -10px;
     left: 10px;
     font-size: 12px;
-    background-color: #2b2d42;
+    background-color: ${props => props.theme.colors.darkBlue};
   `}
 `;
+
+
 
