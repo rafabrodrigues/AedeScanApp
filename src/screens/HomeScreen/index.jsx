@@ -19,7 +19,7 @@ export default function HomeScreen() {
         </InfoContainer>
         <MapContainer>
             <MapTitle>Mapa das areas em foco proliferativo!</MapTitle>
-            <MapDescription>Consulte o mapa para saber se voce esta em uma area de risco</MapDescription>
+            <MapDescription>Consulte o mapa para saber se voce esta em uma area de risco.</MapDescription>
             <Map style={styles.map}/>
         </MapContainer>
       </Container>
