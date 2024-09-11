@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-    background-color: #2b2d42;
+    background-color: ${props => props.theme.colors.darkBlue};
     flex: 1;
     align-items: center;
 `
@@ -20,13 +20,13 @@ export const PopulationContainer = styled.View`
 export const Population = styled.Text`
     font-family: 'Poppins_700Bold';
     font-size: 48px;
-    color: #8d99ae;
+    color: ${props => props.theme.colors.blueGray};
 `
 
 export const PopulationDescription = styled.Text`
     font-family: 'Poppins_600SemiBold';
     font-size: 8px;
-    color: white;
+    color: ${props => props.theme.colors.white};
     margin-top: -15px;
 `
 
@@ -35,7 +35,7 @@ export const MapContainer = styled.View`
     justify-content: center;
     width: 90%;
     height: 45%;
-    background-color: #ffff;
+    background-color:${props.theme.colors.blueGray};
     border-radius: 10px;
     padding: 5%;
 `   
@@ -47,38 +47,38 @@ export const AlertContainer = styled.View`
 export const Alert = styled.Text`
     font-family: 'Poppins_700Bold';
     font-size: 48px;
-    color: #d90429;
+    color: ${props => props.theme.colors.red};
 `
 
 export const AlertDescription = styled.Text`
     font-family: 'Poppins_600SemiBold';
     font-size: 8px;
-    color: white;
+    color: ${props => props.theme.colors.white};
     margin-top: -15px;
 `
 
 export const Case = styled.Text`
     font-family: 'Poppins_700Bold';
     font-size: 48px;
-    color: #d90429;
+    color: ${props => props.theme.colors.red};
 `
 
 export const CaseDescription = styled.Text`
     font-family: 'Poppins_600SemiBold';
     font-size: 8px;
-    color: white;
+    color: ${props => props.theme.colors.white};
     margin-top: -15px;
 `
 
 export const MapTitle = styled.Text`
     font-family: 'Poppins_700Bold';
     font-size: 14px;
-    color: #d90429;
+    color: ${props => props.theme.colors.red};
 `
 export const MapDescription = styled.Text`
     font-family: 'Poppins_500medium';
     font-size: 10px;
-    color: black;
+    color: ${props => props.theme.colors.black};
     margin-top: -8px;
     padding-bottom: 10px;
 `
