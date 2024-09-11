@@ -18,7 +18,7 @@ export default function HomeScreen() {
           </AlertContainer>
         </InfoContainer>
         <MapContainer>
-            <MapTitle>Mapa das areas em foco proliferativo</MapTitle>
+            <MapTitle>Mapa das areas em foco proliferativo!</MapTitle>
             <MapDescription>Consulte o mapa para saber se voce esta em uma area de risco</MapDescription>
             <Map style={styles.map}/>
         </MapContainer>
