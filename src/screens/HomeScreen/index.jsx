@@ -5,10 +5,23 @@ import { Container, PopulationContainer,Population, PopulationDescription } from
 export default function HomeScreen() {
   return (
     <Container>
-      <PopulationContainer>
-        <Population>170.000</Population>
-        <PopulationDescription><Text style={{color:'#8d99ae'}}>População</Text> do estado de Atibaia </PopulationDescription>
-      </PopulationContainer>
-    </Container>
+        <InfoContainer>
+          <PopulationContainer>
+            <Population>171.000</Population>
+            <PopulationDescription><Text style={{color:'#8d99ae'}}>População</Text> do estado de Atibaia </PopulationDescription>
+          </PopulationContainer>
+          <AlertContainer>
+            <Alert>4</Alert>
+            <AlertDescription>Nivel de <Text style={{color:'#d90429'}}>alerta</Text></AlertDescription>
+            <Case>114</Case>
+            <CaseDescription>Numero de <Text style={{color:'#d90429'}}>casos</Text> semanais</CaseDescription>
+          </AlertContainer>
+        </InfoContainer>
+        <MapContainer>
+            <MapTitle>Mapa das areas em foco proliferativo</MapTitle>
+            <MapDescription>Consulte o mapa para saber se voce esta em uma area de risco</MapDescription>
+            <Map style={styles.map}/>
+        </MapContainer>
+      </Container>
   );
 }
