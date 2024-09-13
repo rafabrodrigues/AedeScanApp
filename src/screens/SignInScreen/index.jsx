@@ -1,4 +1,4 @@
-import {Alert} from "react-native";
+import { Alert } from "react-native";
 import React, { useState } from "react";
 import {
   Container,
@@ -11,7 +11,7 @@ import {
 import InputSmooth from "../../components/InputSmooth";
 import { Button, ButtonText } from "../../components/Button";
 import { Link, LinkText } from "../../components/Link";
-import {supabase } from "../../supabase";
+import { supabase } from "../../supabase";
 import { useNavigation } from "@react-navigation/native";
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
