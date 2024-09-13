@@ -19,9 +19,7 @@ export default function SignUpStep1() {
 
   const navigation = useNavigation();
 
-  // Função para lidar com o processo de inscrição
   // const handleSignUp = async () => {
-  //   // Adicione a lógica de inscrição aqui, se necessário
   //   // const { data: { session }, error } = await supabase.auth.signUp({
   //   //   email: email,
   //   //   password: password,

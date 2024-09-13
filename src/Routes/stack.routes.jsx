@@ -1,5 +1,4 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import TabRoutes from "./TabRoutes";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpStep1 from "../screens/SignUpStep1";
@@ -16,7 +15,7 @@ export default function StackRoutes() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: {theme,colors,darkBlue},
+          backgroundColor: { theme, colors, darkBlue },
           borderBottomWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
@@ -27,7 +26,7 @@ export default function StackRoutes() {
         name="tabRoutes"
         component={TabRoutes}
         options={{
-          headerShown: false, 
+          headerShown: false,
           title: "",
         }}
       />
