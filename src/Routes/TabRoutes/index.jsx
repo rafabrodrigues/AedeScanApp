@@ -1,7 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import theme from "../../theme"; // Importa o tema
-
 // screens
 import HomeScreen from "../../screens/HomeScreen";
 import DuvidaScreen from "../../screens/DuvidaScreen";
@@ -9,17 +7,16 @@ import DenunciaScreen from "../../screens/DenunciaScreen";
 import AvisoScreen from "../../screens/AvisoScreen";
 import PerfilScreen from "../../screens/PerfilScreen";
 import LoginScreen from "../../screens/LoginScreen";
-
 // icons
 import { Octicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-
 // styles
 import { DenunciaContainer, TextDenuncia } from "./style";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth"; // Adicione o hook useAuth
+import theme from "../../theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -64,11 +61,12 @@ export default function TabRoutes() {
           tabBarLabel: "Dúvidas",
         }}
       />
+
       <Tab.Screen
         name="denuncia"
         component={session ? DenunciaScreen : LoginScreen}
         options={{
-          tabBarActiveTintColor: '#d9d000',
+          tabBarActiveTintColor: theme.colors.gray,
           tabBarIcon: ({ color, size }) => (
             <DenunciaContainer>
               <AntDesign name="warning" color={color} size={32} />
@@ -78,6 +76,7 @@ export default function TabRoutes() {
           tabBarLabel: "",
         }}
       />
+
       <Tab.Screen
         name="aviso"
         component={AvisoScreen}
