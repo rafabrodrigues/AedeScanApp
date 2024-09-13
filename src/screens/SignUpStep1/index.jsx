@@ -10,7 +10,6 @@ import {
 import { NextButton, NextButtonText } from "../../components/Button";
 import InputSmooth from "../../components/InputSmooth";
 import { useNavigation } from "@react-navigation/native";
-
 export default function SignUpStep1() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -69,7 +68,10 @@ export default function SignUpStep1() {
         <></>
       </MainContainer>
       <ButtonContainer>
-        <NextButton bgColor="transparent" onPress={() => navigation.navigate('signUpStep2')}>
+        <NextButton
+          bgColor="transparent"
+          onPress={() => navigation.navigate("signUpStep2")}
+        >
           <NextButtonText color="white">Próximo</NextButtonText>
         </NextButton>
       </ButtonContainer>

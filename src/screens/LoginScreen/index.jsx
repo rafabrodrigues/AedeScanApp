@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+
 import React from "react";
 import {
   Container,
@@ -10,7 +10,7 @@ import { Button, ButtonText, ButtonCadastro } from "../../components/Button";
 import { Title } from "../../components/Title";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
-
+import { View, Text } from "react-native";
 export default function LoginScreen() {
   const navigation = useNavigation();
   return (
@@ -37,5 +37,6 @@ export default function LoginScreen() {
         </ButtonCadastro>
       </ButtonContainer>
     </Container>
+    
   );
 }

@@ -11,8 +11,10 @@ import {
 import InputSmooth from "../../components/InputSmooth";
 import { Button, ButtonText } from "../../components/Button";
 import { Link, LinkText } from "../../components/Link";
-import { supabase } from "../../supabase";
+import { supabase } from "../../Supabase/supabaseClient";
 import { useNavigation } from "@react-navigation/native";
+import theme from "../../theme";
+import { View, Text } from "react-native";
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,5 +64,6 @@ export default function SignInScreen() {
         </Button>
       </ButtonContainer>
     </Container>
+    
   );
 }

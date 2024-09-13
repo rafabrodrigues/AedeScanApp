@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import theme from "../../theme"; // Importa o tema
 
 // screens
 import HomeScreen from "../../screens/HomeScreen";
@@ -8,16 +9,17 @@ import DenunciaScreen from "../../screens/DenunciaScreen";
 import AvisoScreen from "../../screens/AvisoScreen";
 import PerfilScreen from "../../screens/PerfilScreen";
 import LoginScreen from "../../screens/LoginScreen";
+
 // icons
 import { Octicons } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+
 // styles
 import { DenunciaContainer, TextDenuncia } from "./style";
-import { useAuth } from "../../hooks/useAuth"; // Adicione o hook useAuth
-import theme from "../../theme";
+import { useAuth } from "../../hooks/useAuth";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,14 +29,14 @@ export default function TabRoutes() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false, 
+        headerShown: false,
         tabBarStyle: {
-          backgroundColor: {theme,colors,darkBlue},
+          backgroundColor: theme.colors.darkBlue,
           borderTopWidth: 0.18,
           height: 60,
         },
-        tabBarActiveTintColor: {theme,colors,red},
-        tabBarInactiveTintColor: {theme,colors,gray},
+        tabBarActiveTintColor: theme.colors.red,
+        tabBarInactiveTintColor: theme.colors.gray,
         tabBarLabelStyle: {
           fontSize: 12,
           marginBottom: 8,
@@ -62,12 +64,11 @@ export default function TabRoutes() {
           tabBarLabel: "Dúvidas",
         }}
       />
-
       <Tab.Screen
         name="denuncia"
         component={session ? DenunciaScreen : LoginScreen}
         options={{
-          tabBarActiveTintColor: {theme,colors,gray},
+          tabBarActiveTintColor: '#d9d000',
           tabBarIcon: ({ color, size }) => (
             <DenunciaContainer>
               <AntDesign name="warning" color={color} size={32} />
@@ -77,8 +78,6 @@ export default function TabRoutes() {
           tabBarLabel: "",
         }}
       />
- 
-
       <Tab.Screen
         name="aviso"
         component={AvisoScreen}

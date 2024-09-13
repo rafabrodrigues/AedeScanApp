@@ -21,7 +21,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../theme";
-
+import { View, Text } from "react-native";
 export default function AvisoScreen() {
   const searchRef = useRef(null);
 
@@ -45,7 +45,7 @@ export default function AvisoScreen() {
   const truncatedText = truncateText(notificationText, 200);
 
   return (
-    <Container contentContainerStyle={{ alignItems: 'center' }}>
+    <Container contentContainerStyle={{ alignItems: "center" }}>
       <MainContainer>
         <SearchContainer>
           <SearchButtonIcon onPress={handleSearchPress}>
@@ -61,7 +61,9 @@ export default function AvisoScreen() {
           <SwitchContainer>
             <Switch
               trackColor={{ false: "#111", true: "#111" }}
-              thumbColor={isEnabled ? theme.colors.darkBlue : theme.colors.darkBlue2}
+              thumbColor={
+                isEnabled ? theme.colors.darkBlue : theme.colors.darkBlue2
+              }
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  background-color: ${props => props.theme.colors.darkBlue}; 
+  background-color: ${(props) => props.theme.colors.darkBlue};
   flex: 1;
   justify-content: flex-end;
   align-items: center;
@@ -17,7 +17,7 @@ export const SubTitleContainer = styled.View`
 
 export const SubTitle = styled.Text`
   text-align: center;
-  color: ${props => props.theme.colors.blueGray};
+  color: ${(props) => props.theme.colors.blueGray};
   font-family: Poppins_400Regular_Italic;
   align-items: center;
   font-size: 18px;

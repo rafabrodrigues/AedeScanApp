@@ -1,5 +1,6 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import Routes from "./src/Routes";
+
 import Splash from "./src/screens/Splash";
 import { useFonts } from "expo-font";
 import {
@@ -23,7 +24,7 @@ import {
   Poppins_900Black_Italic,
 } from "@expo-google-fonts/poppins";
 import theme from "./src/theme";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,16 +51,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return null;
+    return <Splash />;
   }
+
   return (
     <ThemeProvider theme={theme}>
-      <Routes/>
-      {/* {isLoading ? (
-          <Splash onFinish={() => setIsLoading(false)} />
-        ) : (
-          <Routes />
-        )} */}
+      <Routes />
     </ThemeProvider>
   );
 }
