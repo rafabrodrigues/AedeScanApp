@@ -68,6 +68,7 @@ export default function SignUpStep1() {
             value={confirmPassword}
           />
         </InputContainer>
+        <></>
       </MainContainer>
       <ButtonContainer>
         <NextButton bgColor="transparent" onPress={() => navigation.navigate('signUpStep2')}>
