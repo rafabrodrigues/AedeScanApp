@@ -6,7 +6,7 @@ export const Link = styled.TouchableOpacity`
 `
 
 export const LinkText = styled.Text`
-    color: ${props => props.color || '#fff'};
+    color: ${props => props.color || props.theme.colors.white};
     font-size: 12.5px;
     font-family: 'Poppins_600SemiBold';
     text-decoration-line: underline;

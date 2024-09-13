@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  background-color: #2b2d42;
+  background-color: ${props => props.theme.colors.darkBlue};
   flex: 1;
   justify-content: space-between;
   align-items: center;
@@ -32,6 +32,6 @@ export const ButtonContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-top-color: #000; 
+  border-top-color: ${props => props.theme.colors.black}; 
   border-top-style: solid;
 `;

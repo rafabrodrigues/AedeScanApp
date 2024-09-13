@@ -10,7 +10,7 @@ export const theme = {
         red:'#D90429',
         cian:'#648b9b',
         paleGray:'#DFDFDF',
-        blueGray:'#8d99ae',
+        blueGray:'#8d99ae', 
     }, 
 
     fonts: {

@@ -30,7 +30,7 @@ export const Placeholder = styled.Text`
     props.isFocused &&
     `
     display:flex;
-    color:${props => props.theme.colors.cian };
+    color:${props => props.theme.colors.cian};
     top: -10px;
     left: 10px;
     font-size: 12px;

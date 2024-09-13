@@ -53,7 +53,7 @@ export default function SignInScreen() {
 
       <LinkContainer>
         <Link>
-          <LinkText color='#8d99ae'>esqueceu a senha?</LinkText>
+          <LinkText color={theme.colors.blueGray}>esqueceu a senha?</LinkText>
         </Link>
       </LinkContainer>
       <ButtonContainer>
