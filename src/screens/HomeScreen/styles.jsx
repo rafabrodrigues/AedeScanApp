@@ -34,7 +34,7 @@ export const MapContainer = styled.View`
   align-items: center;
   justify-content: center;
   width: 90%;
-  height: 45%;
+  height: 50%;
   background-color: ${(props) => props.theme.colors.blueGray};
   border-radius: 10px;
   padding: 5%;
@@ -88,3 +88,4 @@ export const MapDescription = styled.Text`
 export const flex = styled.View`
   display: flex;
 `;
+ 

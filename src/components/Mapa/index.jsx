@@ -38,6 +38,7 @@ const Mapa = () => {
     }
 
     let locationData = await Location.getCurrentPositionAsync({});
+    console.log(locationData);
     setLocation(locationData.coords);
   };
 
@@ -46,38 +47,32 @@ const Mapa = () => {
   }, []);
 
   if (!location) {
-    return (
-      <View style={styles.container}>
-        <MapView style={styles.map} />
-      </View>
-    );
+    return <MapView style={styles.map} />;
   }
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        showsUserLocation={true}
-        initialRegion={{
-          latitude: -23.1171,
-          longitude: -46.5565,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-      >
-        {bairros.map((bairro, index) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: bairro.latitude,
-              longitude: bairro.longitude,
-            }}
-            title={bairro.nome}
-            description={`Casos: ${bairro.casos}, Situação: ${bairro.situacao}`}
-          />
-        ))}
-      </MapView>
-    </View>
+    <MapView
+      style={styles.map}
+      showsUserLocation={true}
+      initialRegion={{
+        latitude: -23.1171,
+        longitude: -46.5565,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }}
+    >
+      {bairros.map((bairro, index) => (
+        <Marker
+          key={index}
+          coordinate={{
+            latitude: bairro.latitude,
+            longitude: bairro.longitude,
+          }}
+          title={bairro.nome}
+          description={`Casos: ${bairro.casos}, Situação: ${bairro.situacao}`}
+        />
+      ))}
+    </MapView>
   );
 };
 
@@ -88,9 +83,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   map: {
-    width: "80%",
-    height: "50%",
- 
+    width: "100%",
+    height: "80%",
   },
 });
 //mapa

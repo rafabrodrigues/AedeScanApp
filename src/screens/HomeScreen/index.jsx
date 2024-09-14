@@ -14,10 +14,10 @@ import {
   MapContainer,
   MapTitle,
   MapDescription,
-  Map
-  
+  Map,
 } from "./styles";
 
+import Mapa from "../../components/Mapa";
 export default function HomeScreen() {
   return (
     <Container>
@@ -45,12 +45,11 @@ export default function HomeScreen() {
         <MapDescription>
           Consulte o mapa para saber se voce esta em uma area de risco.
         </MapDescription>
-        <Map/>
+        <Mapa />
       </MapContainer>
       <View>
         <Text>Teste</Text>
       </View>
-      <Text>Teste3</Text>
     </Container>
   );
 }
