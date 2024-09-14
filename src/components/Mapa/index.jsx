@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
  
   },
 });
-
+//mapa
 export default Mapa;
