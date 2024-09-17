@@ -5,12 +5,14 @@ export const theme = {
         black:'#000000',
         darkBlue:'#2B2D42',
         darkBlue2:'#282a3e',
+        brightDarkBlue:'#4c4e63',
         coolGrey:'#8D99AE',
         gray:'#EDF2F4',
         red:'#D90429',
         cian:'#648b9b',
         paleGray:'#DFDFDF',
         blueGray:'#8d99ae', 
+        
     }, 
 
     fonts: {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { ContainerMapView, StyledMapView } from "./style";
+import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
 const Mapa = () => {
@@ -47,45 +48,34 @@ const Mapa = () => {
   }, []);
 
   if (!location) {
-    return <MapView style={styles.map} />;
+    return <StyledMapView />;
   }
 
   return (
-    <MapView
-      style={styles.map}
-      showsUserLocation={true}
-      initialRegion={{
-        latitude: -23.1171,
-        longitude: -46.5565,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      }}
-    >
-      {bairros.map((bairro, index) => (
-        <Marker
-          key={index}
-          coordinate={{
-            latitude: bairro.latitude,
-            longitude: bairro.longitude,
-          }}
-          title={bairro.nome}
-          description={`Casos: ${bairro.casos}, Situação: ${bairro.situacao}`}
-        />
-      ))}
-    </MapView>
+    <ContainerMapView>
+      <StyledMapView
+        showsUserLocation={true}
+        initialRegion={{
+          latitude: -23.1171,
+          longitude: -46.5565,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+      >
+        {bairros.map((bairro, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: bairro.latitude,
+              longitude: bairro.longitude,
+            }}
+            title={bairro.nome}
+            description={`Casos: ${bairro.casos}, Situação: ${bairro.situacao}`}
+          />
+        ))}
+      </StyledMapView>
+    </ContainerMapView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  map: {
-    width: "100%",
-    height: "80%",
-  },
-});
-//mapa
 export default Mapa;
