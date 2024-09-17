@@ -7,10 +7,11 @@ const InputSmooth = ({
   value,
   onChangeText,
   keyboardType,
+  width,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   return (
-    <InputContainer>
+    <InputContainer width={width}>
       <Input
         value={value}
         onChangeText={onChangeText}

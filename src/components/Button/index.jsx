@@ -8,6 +8,7 @@ export const Button = styled.TouchableOpacity`
   padding-top: 12px;
   padding-right: 4px;
   padding-bottom: 12px;
+  border-radius: 4px;
 `;
 
 export const ButtonText = styled.Text`

@@ -1,23 +1,25 @@
-
 import React from "react";
 import {
   Container,
+  Logo,
   SubTitleContainer,
   SubTitle,
   ButtonContainer,
+  
 } from "./styles";
 import { Button, ButtonText, ButtonCadastro } from "../../components/Button";
-import { Title } from "../../components/Title";
+
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
-import { View, Text } from "react-native";
+
 export default function LoginScreen() {
   const navigation = useNavigation();
   return (
     <Container>
-      <Title>
-        AedeS<Text style={{ color: theme.colors.blueGray }}>can</Text>
-      </Title>
+      <Logo
+        resizeMode='center'
+        source={require("../../../assets/images/aedeScan_title_oficial_png/title_aedescan.png")}
+      />
       <SubTitleContainer>
         <SubTitle>
           Uma pequena atitude, pode fazer uma grande diferença na luta contra a
@@ -33,10 +35,11 @@ export default function LoginScreen() {
           onPress={() => navigation.navigate("signUpStep1")}
           bgColor={theme.colors.darkBlue}
         >
-          <ButtonText color={theme.colors.gray}>Não possuo uma conta</ButtonText>
+          <ButtonText color={theme.colors.gray}>
+            Não possuo uma conta
+          </ButtonText>
         </ButtonCadastro>
       </ButtonContainer>
     </Container>
-    
   );
 }

@@ -8,6 +8,11 @@ export const Container = styled.View`
   align-items: center;
 `;
 
+export const Logo = styled.Image`
+  width: 90%;
+  height: 100px;
+`;
+
 export const SubTitleContainer = styled.View`
   align-items: center;
   justify-content: center;
@@ -21,7 +26,7 @@ export const SubTitle = styled.Text`
   font-family: Poppins_400Regular_Italic;
   align-items: center;
   font-size: 18px;
-  margin-top: -20px;
+  margin-top: 0;
 `;
 
 export const ButtonContainer = styled.View`

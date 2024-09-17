@@ -4,14 +4,18 @@ import {
   MainContainer,
   ButtonContainer,
   Container,
-  InputContainer,
+  FormContainer,
+  NameContainer,
+  NameInputSmooth,
   Images,
 } from "./styles";
-import { NextButton, NextButtonText } from "../../components/Button";
+import { Button, ButtonText } from "../../components/Button";
 import InputSmooth from "../../components/InputSmooth";
 import { useNavigation } from "@react-navigation/native";
+import { theme } from "./../../theme/index";
 export default function SignUpStep1() {
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
+  const [secondName, setSecondName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -43,12 +47,24 @@ export default function SignUpStep1() {
           resizeMode="center"
           source={require("../../../assets/images/aedeScan_title_oficial_png/title_aedescan.png")}
         />
-        <InputContainer>
-          <InputSmooth
-            placeholder="Nome Completo"
-            onChangeText={setFullName}
-            value={fullName}
-          />
+        <FormContainer>
+          <NameContainer>
+            <InputSmooth
+              placeholder="Nome"
+              onChangeText={setName}
+              value={name}
+              width="40%"
+              bgColor="#fff"
+            />
+            <InputSmooth
+              width="55%"
+              placeholder="Sobrenome"
+              onChangeText={setSecondName}
+              value={secondName}
+              bgColor="#000"
+            />
+          </NameContainer>
+
           <InputSmooth
             placeholder="Email"
             onChangeText={setEmail}
@@ -64,16 +80,15 @@ export default function SignUpStep1() {
             onChangeText={setConfirmPassword}
             value={confirmPassword}
           />
-        </InputContainer>
-        <></>
+        </FormContainer>
       </MainContainer>
       <ButtonContainer>
-        <NextButton
-          bgColor="transparent"
+        <Button
+          bgColor={theme.colors.gray}
           onPress={() => navigation.navigate("signUpStep2")}
         >
-          <NextButtonText color="white">Próximo</NextButtonText>
-        </NextButton>
+          <ButtonText color={theme.colors.blueGray}>Próximo</ButtonText>
+        </Button>
       </ButtonContainer>
     </Container>
   );

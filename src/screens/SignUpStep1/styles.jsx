@@ -1,9 +1,11 @@
 import styled from "styled-components/native";
 
+import InputSmooth from "../../components/InputSmooth";
+import { InputContainer } from "../../components/InputSmooth/style";
 export const Container = styled.View`
   background-color: ${(props) => props.theme.colors.darkBlue};
   flex: 1;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 16px;
   flex-direction: column;
@@ -20,18 +22,22 @@ export const Images = styled.Image`
   height: 56px;
 `;
 
-export const InputContainer = styled.View`
+export const FormContainer = styled.View`
   flex-direction: column;
   width: 85%;
   gap: 12px;
   margin-top: 24px;
 `;
 
-export const ButtonContainer = styled.View`
-  height: 64px;
-  justify-content: center;
-  align-items: center;
+export const NameContainer = styled.View`
   width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ButtonContainer = styled.View`
+  width: 85%;
   border-top-color: ${(props) => props.theme.colors.black};
   border-top-style: solid;
 `;
