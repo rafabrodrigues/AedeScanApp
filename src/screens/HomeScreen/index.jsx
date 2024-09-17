@@ -18,6 +18,7 @@ import {
 } from "./styles";
 
 import Mapa from "../../components/Mapa";
+import { theme } from './../../theme/index';
 export default function HomeScreen() {
   return (
     <Container>
@@ -25,18 +26,18 @@ export default function HomeScreen() {
         <PopulationContainer>
           <Population>171.000</Population>
           <PopulationDescription>
-            <Text style={{ color: "#8d99ae" }}>População</Text> do estado de
+            <Text style={{ color: theme.colors.blueGray }}>População</Text> do estado de
             Atibaia{" "}
           </PopulationDescription>
         </PopulationContainer>
         <AlertContainer>
           <Alert>4</Alert>
           <AlertDescription>
-            Nivel de <Text style={{ color: "#d90429" }}>alerta</Text>
+            Nivel de <Text style={{ color: theme.colors.red }}>alerta</Text>
           </AlertDescription>
           <Case>114</Case>
           <CaseDescription>
-            Numero de <Text style={{ color: "#d90429" }}>casos</Text> semanais
+            Numero de <Text style={{ color: theme.colors.red }}>casos</Text> semanais
           </CaseDescription>
         </AlertContainer>
       </InfoContainer>
