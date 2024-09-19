@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { ContainerMapView, StyledMapView } from "./style";
-import { Marker } from "react-native-maps";
+import { Circle, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 
+import { supabase } from "./../../Supabase/supabaseClient";
+
 const Mapa = () => {
+  const [bairros, setBairro] = useState([]);
   const [location, setLocation] = useState(null);
 
-  const bairros = [
-    {
-      nome: "Jardim do Lago",
-      latitude: -23.1312,
-      longitude: -46.55848,
-      casos: 25,
-      situacao: "Moderado",
-    },
-    {
-      nome: "Centro",
-      latitude: -23.1137,
-      longitude: -46.55686,
-      casos: 40,
-      situacao: "Grave",
-    },
-    {
-      nome: "Alvinópolis",
-      latitude: -23.1316,
-      longitude: -46.56832,
-      casos: 12,
-      situacao: "Controlado",
-    },
-  ];
+  const fetchBairros = async () => {
+    const { data, error } = await supabase.from("tab_bairros").select();
+
+    if (error) {
+      alert("Erro ao buscar dados dos bairros:", error);
+      return;
+    }
+    setBairro(data);
+  };
 
   const getLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -44,6 +33,7 @@ const Mapa = () => {
   };
 
   useEffect(() => {
+    fetchBairros();
     getLocation();
   }, []);
 
@@ -63,15 +53,27 @@ const Mapa = () => {
         }}
       >
         {bairros.map((bairro, index) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: bairro.latitude,
-              longitude: bairro.longitude,
-            }}
-            title={bairro.nome}
-            description={`Casos: ${bairro.casos}, Situação: ${bairro.situacao}`}
-          />
+          <View>
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: bairro.latitude_bairro,
+                longitude: bairro.longitude_bairro,
+              }}
+              title={bairro.nome_bairro}
+              description={`Casos: ${bairro.casos_bairro}, Situação: ${bairro.situacao_bairro}`}
+            />
+            <Circle
+              center={{
+                latitude: bairro.latitude_bairro,
+                longitude: bairro.longitude_bairro,
+              }}
+              radius={500}
+              strokeWidth={2}
+              strokeColor="rgba(0, 0, 255, 0.5)"
+              fillColor="rgba(0, 0, 255, 0.2)"
+            />
+          </View>
         ))}
       </StyledMapView>
     </ContainerMapView>
