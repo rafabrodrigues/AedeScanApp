@@ -53,9 +53,8 @@ const Mapa = () => {
         }}
       >
         {bairros.map((bairro, index) => (
-          <View>
+          <View key={index}>
             <Marker
-              key={index}
               coordinate={{
                 latitude: bairro.latitude_bairro,
                 longitude: bairro.longitude_bairro,
@@ -68,7 +67,7 @@ const Mapa = () => {
                 latitude: bairro.latitude_bairro,
                 longitude: bairro.longitude_bairro,
               }}
-              radius={500}
+              radius={600}
               strokeWidth={2}
               strokeColor="rgba(0, 0, 255, 0.5)"
               fillColor="rgba(0, 0, 255, 0.2)"
