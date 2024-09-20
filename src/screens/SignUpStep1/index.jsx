@@ -6,11 +6,11 @@ import {
   Container,
   FormContainer,
   NameContainer,
-  NameInputSmooth,
   Images,
 } from "./styles";
 import { Button, ButtonText } from "../../components/Button";
 import InputSmooth from "../../components/InputSmooth";
+import InputPasswordSmooth from "../../components/InputPasswordSmooth";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "./../../theme/index";
 export default function SignUpStep1() {
@@ -57,7 +57,7 @@ export default function SignUpStep1() {
               bgColor="#fff"
             />
             <InputSmooth
-              width="55%"
+              width="58%"
               placeholder="Sobrenome"
               onChangeText={setSecondName}
               value={secondName}
@@ -70,12 +70,12 @@ export default function SignUpStep1() {
             onChangeText={setEmail}
             value={email}
           />
-          <InputSmooth
+          <InputPasswordSmooth
             placeholder="Senha"
             onChangeText={setPassword}
             value={password}
           />
-          <InputSmooth
+          <InputPasswordSmooth
             placeholder="Confirme sua senha"
             onChangeText={setConfirmPassword}
             value={confirmPassword}

@@ -25,7 +25,7 @@ export const Images = styled.Image`
 export const FormContainer = styled.View`
   flex-direction: column;
   width: 85%;
-  gap: 12px;
+  gap: 4px;
   margin-top: 24px;
 `;
 

@@ -9,12 +9,12 @@ import {
 } from "./styles";
 
 import InputSmooth from "../../components/InputSmooth";
+import InputPasswordSmooth from "../../components/InputPasswordSmooth";
 import { Button, ButtonText } from "../../components/Button";
 import { Link, LinkText } from "../../components/Link";
 import { supabase } from "../../Supabase/supabaseClient";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../../theme";
-import { View, Text } from "react-native";
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +46,7 @@ export default function SignInScreen() {
           onChangeText={setEmail}
           value={email}
         />
-        <InputSmooth
+        <InputPasswordSmooth
           placeholder="Senha"
           onChangeText={setPassword}
           value={password}
@@ -64,6 +64,5 @@ export default function SignInScreen() {
         </Button>
       </ButtonContainer>
     </Container>
-    
   );
 }
