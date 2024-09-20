@@ -18,13 +18,24 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCkgInrgA_op326eWG7u8QXI-BXYCzBzHE"
+        }
+      },
+      "package": "com.rafaelbarbosa2.aedescan"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "057fab85-7740-4e41-bda0-c45c210ae1c9"
+      }
+    }
   }
 }

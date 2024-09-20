@@ -16,7 +16,6 @@ import {
   MapTitle,
   MapDescription,
 } from "./styles";
-
 import Mapa from "../../components/Mapa";
 import { theme } from "./../../theme/index";
 export default function HomeScreen() {
