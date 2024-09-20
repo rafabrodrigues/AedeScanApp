@@ -6,23 +6,31 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
-export const Image = styled.Image`
-  width: 90%;
-  height: 100px;
+
+export const TitlesContainer = styled.View`
+  width: 65%;
 `;
+
 
 export const InputContainer = styled.View`
   flex-direction: column;
   width: 85%;
-  gap: 16px;
+  gap: 8px;
   margin-top: 12px;
+  margin-bottom: 4px;
 `;
 
 export const LinkContainer = styled.View`
   width: 85%;
 `;
 
+export const CreateAccountContainer = styled.View`
+  width: 85%;
+  flex-direction: row;
+`
+
 export const ButtonContainer = styled.View`
   width: 85%;
   margin-top: 16px;
+  margin-bottom: 8px;
 `;
