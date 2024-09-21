@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { ContainerMapView, StyledMapView } from "./style";
 import { Circle, Marker } from "react-native-maps";
-import * as Location from "expo-location";
-
 import { supabase } from "./../../Supabase/supabaseClient";
+import { getLocation } from "../../utils/getLocation";
 
 const Mapa = () => {
   const [bairros, setBairro] = useState([]);
@@ -20,21 +19,16 @@ const Mapa = () => {
     setBairro(data);
   };
 
-  const getLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      console.log("Permissão negada");
-      return;
+  const fetchLocation = async () => {
+    const locationData = await getLocation();
+    if (locationData) {
+      setLocation(locationData);
     }
-
-    let locationData = await Location.getCurrentPositionAsync({});
-    console.log(locationData);
-    setLocation(locationData.coords);
   };
 
   useEffect(() => {
     fetchBairros();
-    getLocation();
+    fetchLocation();
   }, []);
 
   if (!location) {
@@ -46,8 +40,8 @@ const Mapa = () => {
       <StyledMapView
         showsUserLocation={true}
         initialRegion={{
-          latitude: -23.1171,
-          longitude: -46.5565,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}

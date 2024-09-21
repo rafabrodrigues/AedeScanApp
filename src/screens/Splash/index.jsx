@@ -1,10 +1,23 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { ResizeMode, Video } from "expo-av";
+import { StyleSheet } from "react-native";
+import React, { useState } from "react";
 
-export default function Splash() {
+export default function Splash({ onFinish }) {
+  const [status, setStatus] = useState({});
+
   return (
-    <View>
-      <Text>Splash</Text>
-    </View>
-  )
+    <Video
+      style={StyleSheet.absoluteFill}
+      source={require("../../../assets/icons/animated-splash.mp4")}
+      resizeMode={ResizeMode.COVER}
+      isLooping={false}
+      shouldPlay={true}
+      onPlaybackStatusUpdate={(status) => {
+        setStatus(() => status);
+        if (status.didJustFinish) {
+          onFinish();
+        }
+      }}
+    />
+  );
 }
