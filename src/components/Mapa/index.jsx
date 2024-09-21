@@ -42,7 +42,6 @@ const Mapa = () => {
   }
 
   return (
-
     <ContainerMapView>
       <StyledMapView
         showsUserLocation={true}

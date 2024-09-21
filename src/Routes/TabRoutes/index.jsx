@@ -15,7 +15,7 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 // styles
 import { DenunciaContainer, TextDenuncia } from "./style";
-import { useAuth } from "../../hooks/useAuth"; // Adicione o hook useAuth
+import { useAuth } from "../../hooks/useAuth"; 
 import theme from "../../theme";
 
 const Tab = createBottomTabNavigator();

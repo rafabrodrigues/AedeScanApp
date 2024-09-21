@@ -16,8 +16,8 @@ import {
   MapTitle,
   MapDescription,
 } from "./styles";
-import Mapa from "../../components/Mapa";
 import { theme } from "./../../theme/index";
+import Mapa from '../../components/Mapa'
 export default function HomeScreen() {
   return (
     <Container>
@@ -47,7 +47,7 @@ export default function HomeScreen() {
           <MapDescription>
             Consulte o mapa para saber se voce esta em uma area de risco.
           </MapDescription>
-          <Mapa />
+          <Mapa/>
         </MapMainContainer>
       </MapContainer>
     </Container>

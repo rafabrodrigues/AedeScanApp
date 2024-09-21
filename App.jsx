@@ -25,6 +25,9 @@ import {
 } from "@expo-google-fonts/poppins";
 import theme from "./src/theme";
 import { ThemeProvider } from "styled-components/native";
+import HomeScreen from "./src/screens/HomeScreen";
+import AvisoScreen from "./src/screens/AvisoScreen";
+import LoginScreen from "./src/screens/LoginScreen";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,7 +59,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <Routes/>
     </ThemeProvider>
   );
 }
