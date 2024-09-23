@@ -28,7 +28,7 @@ export default function TabRoutes() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme.colors.darkBlue,
+          backgroundColor: theme.colors.darkBlue2,
           borderTopWidth: 0.18,
           height: 60,
         },
