@@ -25,8 +25,8 @@ export default function HomeScreen() {
         <PopulationContainer>
           <Population>171.000</Population>
           <PopulationDescription>
-            <Text style={{ color: theme.colors.blueGray }}>População</Text> do
-            estado de Atibaia
+            <Text style={{ color: theme.colors.blueGray }}>População</Text> da
+            cidade de Atibaia
           </PopulationDescription>
         </PopulationContainer>
         <AlertContainer>

@@ -33,4 +33,5 @@ export const ButtonContainer = styled.View`
   width: 85%;
   margin-top: 16px;
   margin-bottom: 8px;
-`;
+  
+  `;

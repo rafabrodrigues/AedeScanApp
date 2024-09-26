@@ -13,7 +13,7 @@ import { Title } from "../../components/Title";
 import { StyledImage } from "../../components/StyledImage";
 import InputSmooth from "../../components/InputSmooth";
 import InputPasswordSmooth from "../../components/InputPasswordSmooth";
-import { Button, ButtonText } from "../../components/Button";
+import { Button, ButtonText, ButtonWithIcon } from "../../components/Button";
 import { Link, LinkForgetPassword, LinkText } from "../../components/Link";
 import { supabase } from "../../Supabase/supabaseClient";
 import { useNavigation } from "@react-navigation/native";
@@ -76,9 +76,7 @@ export default function SignInScreen() {
         </LinkForgetPassword>
       </LinkContainer>
       <ButtonContainer>
-        <Button onPress={handleSignIn}>
-          <ButtonText>Entrar</ButtonText>
-        </Button>
+        <ButtonWithIcon text='Login' onPress={handleSignIn} />
       </ButtonContainer>
 
       <CreateAccountContainer>
