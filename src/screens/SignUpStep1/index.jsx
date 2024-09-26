@@ -1,16 +1,20 @@
-import { View, Text, Alert } from "react-native";
 import React, { useState } from "react";
 import {
-  MainContainer,
-  ButtonContainer,
   Container,
+  TitlesContainer,
   FormContainer,
   NameContainer,
-  Images,
+  ButtonContainer,
+  LinkContainer,
 } from "./styles";
-import { Button, ButtonText } from "../../components/Button";
+import { SpaceBetween } from "../../components/Containers/SpaceBetween";
+import { Title } from "../../components/Title";
+import { SubTitle } from "../../components/SubTitle";
+import { StyledImage } from "./../../components/StyledImage/index";
 import InputSmooth from "../../components/InputSmooth";
 import InputPasswordSmooth from "../../components/InputPasswordSmooth";
+import { ButtonWithIcon } from "../../components/Button";
+import { Link, LinkText } from "../../components/Link";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "./../../theme/index";
 export default function SignUpStep1() {
@@ -19,6 +23,8 @@ export default function SignUpStep1() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
 
   const navigation = useNavigation();
 
@@ -42,54 +48,76 @@ export default function SignUpStep1() {
 
   return (
     <Container>
-      <MainContainer>
-        <Images
-          resizeMode="center"
-          source={require("../../../assets/images/aedeScan_title_oficial_png/title_aedescan.png")}
-        />
-        <FormContainer>
-          <NameContainer>
-            <InputSmooth
-              placeholder="Nome"
-              onChangeText={setName}
-              value={name}
-              width="40%"
-              bgColor="#fff"
-            />
-            <InputSmooth
-              width="58%"
-              placeholder="Sobrenome"
-              onChangeText={setSecondName}
-              value={secondName}
-              bgColor="#000"
-            />
-          </NameContainer>
+      <SpaceBetween width="85%">
+        <TitlesContainer>
+          <Title size="22px">Seja bem vindo!</Title>
+          <SubTitle color={theme.colors.blueGray} size="12.8px">
+            Cadastre-se! Sua participação faz toda a diferença para a causa.
+            Faça Parte!
+          </SubTitle>
+        </TitlesContainer>
 
+        <StyledImage
+          source={require("../../../assets/icons/icon.png")}
+          resizeMode="cover"
+          width="40%"
+          height="100%"
+        />
+      </SpaceBetween>
+      <FormContainer>
+        <NameContainer>
           <InputSmooth
-            placeholder="Email"
-            onChangeText={setEmail}
-            value={email}
+            placeholder="Nome"
+            onChangeText={setName}
+            value={name}
+            width="40%"
+            bgColor="#fff"
           />
-          <InputPasswordSmooth
-            placeholder="Senha"
-            onChangeText={setPassword}
-            value={password}
+          <InputSmooth
+            width="58%"
+            placeholder="Sobrenome"
+            onChangeText={setSecondName}
+            value={secondName}
+            bgColor="#000"
           />
-          <InputPasswordSmooth
-            placeholder="Confirme sua senha"
-            onChangeText={setConfirmPassword}
-            value={confirmPassword}
-          />
-        </FormContainer>
-      </MainContainer>
+        </NameContainer>
+
+        <InputSmooth
+          placeholder="Email"
+          onChangeText={setEmail}
+          value={email}
+        />
+        <InputPasswordSmooth
+          placeholder="Senha"
+          onChangeText={setPassword}
+          value={password}
+        />
+        <InputPasswordSmooth
+          placeholder="Confirme sua senha"
+          onChangeText={setConfirmPassword}
+          value={confirmPassword}
+        />
+        <InputSmooth placeholder="CPF" onChangeText={setCpf} value={cpf} />
+        <InputSmooth
+          placeholder="Data de Nascimento"
+          onChangeText={setDateOfBirth}
+          value={dateOfBirth}
+        />
+      </FormContainer>
       <ButtonContainer>
-        <Button
-          bgColor={theme.colors.gray}
-          onPress={() => navigation.navigate("signUpStep2")}
-        >
-          <ButtonText color={theme.colors.blueGray}>Próximo</ButtonText>
-        </Button>
+        <ButtonWithIcon
+          text="Cadastrar"
+          fontSize="18px"
+          width="60%"
+          color={theme.colors.black}
+        />
       </ButtonContainer>
+      <LinkContainer>
+        <LinkText color={theme.colors.paleGray}>Já possui uma conta?</LinkText>
+        <Link onPress={() => navigation.navigate("signInStack")}>
+          <LinkText color={theme.colors.red}> Faça login!</LinkText>
+        </Link>
+      </LinkContainer>
     </Container>
   );
 }

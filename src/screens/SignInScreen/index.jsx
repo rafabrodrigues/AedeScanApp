@@ -42,9 +42,10 @@ export default function SignInScreen() {
   return (
     <Container>
       <SpaceBetween width="85%">
+        
         <TitlesContainer>
           <Title size="22px">Seja bem vindo!</Title>
-          <SubTitle color={theme.colors.blueGray} size="14px">
+          <SubTitle color={theme.colors.blueGray} size="14px"> 
             Faça login para desbloquear todas as funções do aplicativo
           </SubTitle>
         </TitlesContainer>
@@ -76,7 +77,7 @@ export default function SignInScreen() {
         </LinkForgetPassword>
       </LinkContainer>
       <ButtonContainer>
-        <ButtonWithIcon text='Login' onPress={handleSignIn} />
+        <ButtonWithIcon text='Login' fontSize='18px' onPress={handleSignIn} />
       </ButtonContainer>
 
       <CreateAccountContainer>

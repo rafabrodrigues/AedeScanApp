@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import theme from "../../theme";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 export const Button = styled.TouchableOpacity`
   background-color: ${(props) => props.bgColor || props.theme.colors.gray};
@@ -25,22 +25,31 @@ export const ButtonCadastro = styled(Button)`
 `;
 
 const ButtonWIContainer = styled.TouchableOpacity`
-  background-color: ${(props) => props.bgColor || props.theme.colors.black};
+  background-color: ${(props) =>
+    props.bgColor || props.theme.colors.blackOpacity};
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: ${(props) => props.width || "50%"};
-  padding-top:8px;
-  padding-bottom: 8px;
+  padding-top: ${(props) => props.paddingVeritcal || "10px"};
+  padding-bottom: ${(props) => props.paddingVeritcal || "10px"};
   border-radius: 4px;
 `;
 
-export const ButtonWithIcon = ({ text, onPress }) => {
+export const ButtonWithIcon = ({
+  text,
+  onPress,
+  width,
+  fontSize,
+  bgColor,
+  color,
+}) => {
   return (
-    <ButtonWIContainer bgColor='#0000004d' onPress={onPress}>
-      <ButtonText color={theme.colors.black}>{text}</ButtonText>
-      <AntDesign name="arrowright" size={24} color={theme.colors.black} />
+    <ButtonWIContainer bgColor={bgColor} onPress={onPress} width={width}>
+      <ButtonText color={color} fontSize={fontSize}>
+        {text}
+      </ButtonText>
+      <FontAwesome6 name="arrow-right-long" size={24} color={color} />
     </ButtonWIContainer>
-  )
-}
-
+  );
+};

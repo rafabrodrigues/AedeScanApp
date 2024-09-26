@@ -10,7 +10,7 @@ export const Container = styled.View`
 export const TitlesContainer = styled.View`
   width: 65%;
 `;
-
+ 
 
 export const InputContainer = styled.View`
   flex-direction: column;
@@ -31,7 +31,6 @@ export const CreateAccountContainer = styled.View`
 
 export const ButtonContainer = styled.View`
   width: 85%;
-  margin-top: 16px;
+  margin-top: 4px;
   margin-bottom: 8px;
-  
   `;

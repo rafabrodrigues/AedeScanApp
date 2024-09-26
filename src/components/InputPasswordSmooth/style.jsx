@@ -10,7 +10,6 @@ export const InputPasswordContainer = styled.View`
     props.isFocused ? props.theme.colors.blueGray : props.theme.colors.gray};
   border-radius: 5px;
   padding-right: 8px;
-  margin-top: 10px;
 `;
 
 export const InputPassword = styled.TextInput`
