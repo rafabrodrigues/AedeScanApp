@@ -77,7 +77,7 @@ export default function SignInScreen() {
         </LinkForgetPassword>
       </LinkContainer>
       <ButtonContainer>
-        <ButtonWithIcon text='Login' fontSize='18px' onPress={handleSignIn} />
+        <ButtonWithIcon text='Login' fontSize='18px' onPress={handleSignIn} color={theme.colors.black}/>
       </ButtonContainer>
 
       <CreateAccountContainer>
