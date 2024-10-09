@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Keyboard } from "react-native"; // Importa o Keyboard
 // screens
 import HomeScreen from "../../screens/HomeScreen";
 import DuvidaScreen from "../../screens/DuvidaScreen";
@@ -15,13 +16,33 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 // styles
 import { DenunciaContainer, TextDenuncia } from "./style";
-import { useAuth } from "../../hooks/useAuth"; 
+import { useAuth } from "../../hooks/useAuth";
 import theme from "../../theme";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
   const { session } = useAuth();
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <Tab.Navigator
@@ -30,7 +51,7 @@ export default function TabRoutes() {
         tabBarStyle: {
           backgroundColor: theme.colors.darkBlue2,
           borderTopWidth: 0.18,
-          height: 60,
+          height: isKeyboardVisible ? 0 : 60,
         },
         tabBarActiveTintColor: theme.colors.red,
         tabBarInactiveTintColor: theme.colors.gray,
@@ -67,12 +88,13 @@ export default function TabRoutes() {
         component={session ? DenunciaScreen : LoginScreen}
         options={{
           tabBarActiveTintColor: theme.colors.gray,
-          tabBarIcon: ({ color, size }) => (
-            <DenunciaContainer>
-              <AntDesign name="warning" color={color} size={32} />
-              <TextDenuncia>Denúncia</TextDenuncia>
-            </DenunciaContainer>
-          ),
+          tabBarIcon: ({ color, size }) =>
+            !isKeyboardVisible && (
+              <DenunciaContainer>
+                <AntDesign name="warning" color={color} size={32} />
+                <TextDenuncia>Denúncia</TextDenuncia>
+              </DenunciaContainer>
+            ),
           tabBarLabel: "",
         }}
       />

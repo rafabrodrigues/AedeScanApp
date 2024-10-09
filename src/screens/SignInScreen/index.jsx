@@ -13,7 +13,11 @@ import { Title } from "../../components/Title";
 import { StyledImage } from "../../components/StyledImage";
 import InputSmooth from "../../components/InputSmooth";
 import InputPasswordSmooth from "../../components/InputPasswordSmooth";
-import { Button, ButtonText, ButtonWithIcon } from "../../components/Button";
+import {
+  Button,
+  ButtonText,
+  ButtonWithRightIcon,
+} from "../../components/Button";
 import { Link, LinkForgetPassword, LinkText } from "../../components/Link";
 import { SubTitle } from "../../components/SubTitle";
 import { SpaceBetween } from "../../components/Containers/SpaceBetween";
@@ -120,7 +124,7 @@ export default function SignInScreen() {
         </LinkForgetPassword>
       </LinkContainer>
       <ButtonContainer>
-        <ButtonWithIcon
+        <ButtonWithRightIcon
           text="Login"
           fontSize="18px"
           onPress={handleSubmit(handleSignIn)}

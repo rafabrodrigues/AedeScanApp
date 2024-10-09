@@ -1,7 +1,4 @@
 import styled from "styled-components/native";
-
-import InputSmooth from "../../components/InputSmooth";
-import { InputContainer } from "../../components/InputSmooth/style";
 export const Container = styled.View`
   background-color: ${(props) => props.theme.colors.darkBlue};
   flex: 1;
@@ -17,7 +14,7 @@ export const FormContainer = styled.View`
   margin-top: 8px;
   flex-direction: column;
   width: 85%;
-  gap: 12px;
+  gap: 10px;
 `;
 
 export const NameContainer = styled.View`

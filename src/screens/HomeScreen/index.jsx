@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+
 import {
   Container,
   PopulationContainer,
@@ -19,6 +20,10 @@ import {
 import { theme } from "./../../theme/index";
 import Mapa from '../../components/Mapa'
 export default function HomeScreen() {
+
+
+
+
   return (
     <Container>
       <InfoContainer>
