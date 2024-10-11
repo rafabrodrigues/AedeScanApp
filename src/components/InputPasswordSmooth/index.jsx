@@ -8,6 +8,7 @@ const InputPasswordSmooth = ({
   placeholder,
   keyboardType,
   width,
+  errorMessage,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -20,6 +21,7 @@ const InputPasswordSmooth = ({
     <InputPasswordContainer
       width={width}
       isFocused={isFocused || value.length > 0}
+      hasError={!!errorMessage}
     >
       <View style={{ width: "90%" }}>
         <InputPassword
@@ -27,14 +29,16 @@ const InputPasswordSmooth = ({
           onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          isFocused={isFocused || value.length > 0}
-          placeholder={isFocused ? "" : placeholder}
+          placeholder={isFocused || errorMessage ? "" : placeholder}
           placeholderTextColor="#999"
           keyboardType={keyboardType ? keyboardType : "default"}
           secureTextEntry={secureTextEntry}
         />
-        <Placeholder isFocused={isFocused || value.length > 0}>
-          {placeholder}
+        <Placeholder
+          isFocused={isFocused || value.length > 0 || errorMessage}
+          hasError={!!errorMessage}
+        >
+          {errorMessage || placeholder}
         </Placeholder>
       </View>
 

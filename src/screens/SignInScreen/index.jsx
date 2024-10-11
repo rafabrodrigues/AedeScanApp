@@ -91,10 +91,10 @@ export default function SignInScreen() {
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
+              errorMessage={errors.email?.message}
             />
           )}
         />
-        {errors.email && <TextError>{errors.email.message}</TextError>}
 
         <Controller
           control={control}
@@ -112,10 +112,10 @@ export default function SignInScreen() {
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
+              errorMessage={errors.password?.message}
             />
           )}
         />
-        {errors.password && <TextError>{errors.password.message}</TextError>}
       </InputContainer>
 
       <LinkContainer>

@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 
-
 export const HeaderContainer = styled.View`
   width: 85%;
 `;
@@ -10,7 +9,7 @@ export const CepContainer = styled.View`
   flex-direction: row;
   gap: 12px;
   align-items: center;
-`
+`;
 
 export const TitleContainer = styled.View`
   width: 100%;
@@ -24,6 +23,12 @@ export const MidiaTitleContainer = styled(TitleContainer)`
 export const FormContainer = styled.View`
   width: 85%;
   margin-top: 12px;
+  gap: 12px;
+`;
+
+export const AgroupContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
   gap: 8px;
 `;
 
@@ -35,6 +40,10 @@ export const MidiaContainer = styled.View`
   padding-left: 24px;
   padding-right: 24px;
   margin-top: 12px;
+`;
+
+export const PickFileContainer = styled(AgroupContainer)`
+  margin-bottom: 4px;
 `;
 
 export const ButtonContainer = styled.View`
@@ -49,5 +58,5 @@ export const Container = styled.ScrollView.attrs(() => ({
 }))`
   background-color: ${(props) => props.theme.colors.darkBlue};
   flex: 1;
-  padding-top: 64px;
+  padding-top: 48px;
 `;

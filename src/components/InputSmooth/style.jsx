@@ -7,23 +7,28 @@ export const InputContainer = styled.View`
 export const Input = styled.TextInput`
   font-family: "Poppins_400Regular";
   padding: 10px;
-  border: 2px solid ${(props) => props.theme.colors.gray};
+  border-width: 2px;
+  border-color: ${(props) =>
+    props.hasError
+      ? props.theme.colors.red
+      : props.isFocused
+      ? props.theme.colors.blueGray
+      : props.theme.colors.gray};
   border-radius: 5px;
   color: ${(props) => props.theme.colors.white};
-  border-color: ${(props) =>
-    props.isFocused ? props.theme.colors.blueGray : props.theme.colors.gray};
 `;
 
 export const Placeholder = styled.Text`
   position: absolute;
-  display: ${(props) => (props.isFocused || props.hasValue ? "flex" : "none")};
-  font-size: 14px;
+  display: ${(props) =>
+    props.hasError || props.isFocused || props.hasValue ? "flex" : "none"};
+  font-size: ${(props) => (props.isFocused ? "11px" : "14px")};
   padding-right: 5px;
   padding-left: 5px;
   font-family: "Poppins_400Regular";
-  color: ${(props) => props.theme.colors.blueGray};
-  top: ${(props) => (props.isFocused ? "-10px" : "0")};
+  color: ${(props) =>
+    props.hasError ? props.theme.colors.red : props.theme.colors.blueGray};
+  top: ${(props) => (props.isFocused ? "-10px" : "0px")};
   left: 10px;
-  font-size: ${(props) => (props.isFocused ? "12px" : "14px")};
   background-color: ${(props) => props.theme.colors.darkBlue};
 `;

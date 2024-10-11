@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../../Supabase/supabaseClient";
+import { getUserId } from "../../utils/getUserId";
 import { Alert } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
 import {
   Container,
   FormContainer,
@@ -11,11 +14,13 @@ import {
   ButtonContainer,
   MidiaTitleContainer,
   CepContainer,
+  PickFileContainer,
+  AgroupContainer,
 } from "./styles";
 import { Title } from "../../components/Title";
 import theme from "../../theme";
 import { SubTitle } from "../../components/SubTitle";
-import { Input } from "../../components/Input";
+import InputSmooth from "../../components/InputSmooth";
 import {
   ButtonWithLeftIcon,
   ButtonWithRightIcon,
@@ -23,18 +28,94 @@ import {
 import { TextArea } from "../../components/TextArea";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { TextError } from "../../components/TextError";
+import Feather from "@expo/vector-icons/Feather";
 
 export default function DenunciaScreen() {
+  const [image, setImage] = useState(null);
   const {
     control,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      cep: "",
+      bairro: "",
+      rua: "",
+      numero: "",
+      descricao: "",
+    },
+  });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const userId = await getUserId();
+    const userIdC = "8f50ca7e-7918-4e88-9d91-4ba00fb888fd";
+    const { data: userData, error: userError } = await supabase
+      .from("tab_users")
+      .select("id_users")
+      .eq("id_users", userIdC)
+      .single();
+
+    if (userError) {
+      console.error("Erro ao buscar o usuário:", userError);
+    } else if (!userData) {
+      console.log("Usuário não encontrado.");
+    } else {
+      console.log("Usuário encontrado:", userData);
+    }
+
+    // let imageUrl = null;
+
+    // if (image) {
+    //   imageUrl = await uploadImage(image);
+    //   if (!imageUrl) {
+    //     return;
+    //   }
+    // }
+
+    // const { error } = await supabase.from("tab_denuncias").insert([
+    //   {
+    //     cep_denuncia: data.cep,
+    //     bairro_denuncia: data.bairro,
+    //     rua_denuncia: data.rua,
+    //     numero_denuncia: data.numero,
+    //     descricao_denuncia: data.descricao,
+    //     foto_denuncia: imageUrl,
+    //     id_users_denuncia: userId,
+    //   },
+    // ]);
+
+    // if (error) {
+    //   Alert.alert("Erro ao enviar a denúncia:", error.message);
+    // } else {
+    //   Alert.alert("Denúncia enviada com sucesso!");
+    // }
+  };
+
+  const uploadImage = async (uri) => {
+    const fileName = uri.split("/").pop();
+    const { data, error } = await supabase.storage
+      .from("denuncias_bucket")
+      .upload(`images/${fileName}`, {
+        uri,
+      });
+
+    if (error) {
+      Alert.alert("Erro ao fazer upload da imagem:", error.message);
+      return null;
+    }
+
+    const { publicURL, error: urlError } = supabase.storage
+      .from("denuncias_bucket")
+      .getPublicUrl(data.path);
+
+    if (urlError) {
+      Alert.alert("Erro ao obter URL da imagem:", urlError.message);
+      return null;
+    }
+
+    return publicURL;
   };
 
   const searchAddress = async (cep) => {
@@ -45,9 +126,54 @@ export default function DenunciaScreen() {
       } else {
         setValue("bairro", response.data.bairro);
         setValue("rua", response.data.logradouro);
+        console.log(image);
       }
     } catch (err) {
       Alert.alert("Erro", "Erro ao buscar o CEP");
+    }
+  };
+
+  const pickImageFromGallery = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      Alert.alert(
+        "Permissão negada",
+        "Você precisa conceder a permissão de acesso à galeria."
+      );
+      return;
+    }
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      Alert.alert(
+        "Permissão negada",
+        "Você precisa conceder a permissão de uso da câmera."
+      );
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
   };
 
@@ -69,20 +195,28 @@ export default function DenunciaScreen() {
           <Controller
             control={control}
             name="cep"
-            rules={{ required: "CEP é obrigatório" }}
+            rules={{
+              required: "CEP é obrigatório",
+              pattern: {
+                value: /^\d{5}-\d{3}$/,
+                message: "O formato deve ser 00000-000",
+              },
+            }}
             render={({ field: { onChange, onBlur, value } }) => (
-                <Input
-                  placeholder="Digite o CEP:"
-                  placeholderTextColor="#999"
-                  width="60%"
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  keyboardType='numeric'
-                />
+              <InputSmooth
+                placeholder="Digite o CEP:"
+                placeholderTextColor="#999"
+                width="72%"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                maxLength={9}
+                keyboardType="numeric"
+                errorMessage={errors.cep?.message}
+              />
             )}
           />
-          
+
           <ButtonWithRightIcon
             text="Pesquisar"
             width="40%"
@@ -101,94 +235,128 @@ export default function DenunciaScreen() {
               />
             }
             onPress={() => {
-              handleSubmit((data) => searchAddress(data.cep))();
+              const cepValue = getValues("cep");
+              searchAddress(cepValue);
             }}
           />
         </CepContainer>
-        {errors.cep && <TextError>{errors.cep.message}</TextError>}
+
         <Controller
           control={control}
           name="bairro"
           rules={{ required: "Bairro é obrigatório" }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Input
-                placeholder="Bairro:"
-                placeholderTextColor="#999"
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-              {errors.bairro && <TextError>{errors.bairro.message}</TextError>}
-            </>
+            <InputSmooth
+              placeholder="Bairro"
+              placeholderTextColor="#999"
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              errorMessage={errors.bairro?.message}
+            />
           )}
         />
-
-        <Controller
-          control={control}
-          name="rua"
-          rules={{ required: "Rua é obrigatória" }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Input
+        <AgroupContainer>
+          <Controller
+            control={control}
+            name="rua"
+            rules={{ required: "Rua é obrigatória" }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <InputSmooth
                 placeholder="Rua:"
                 placeholderTextColor="#999"
+                width="50%"
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
+                errorMessage={errors.rua?.message}
               />
-              {errors.rua && <TextError>{errors.rua.message}</TextError>}
-            </>
-          )}
-        />
+            )}
+          />
+          <Controller
+            control={control}
+            name="numero"
+            rules={{ required: "Número é obrigatório" }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <InputSmooth
+                placeholder="Num"
+                placeholderTextColor="#999"
+                width="47%"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                keyboardType="numeric"
+                errorMessage={errors.numero?.message}
+              />
+            )}
+          />
+        </AgroupContainer>
       </FormContainer>
       <MidiaContainer>
         <MidiaTitleContainer>
           <Title size="16px" color={theme.colors.white}>
             Mídia
           </Title>
-          <SubTitle size="8px">
+          <SubTitle size="11px">
             Adicione uma foto ou vídeo do local onde foi localizado o foco
             proliferativo da dengue
           </SubTitle>
         </MidiaTitleContainer>
-        <ButtonWithLeftIcon
-          text="Adicionar Foto"
-          width="45%"
-          color={theme.colors.white}
-          bgColor={theme.colors.blackOpacity4}
-          paddingVeritcal="4px"
-          justifyContent="flex-start"
-          fontSize="12px"
-          gap="8px"
-          icon={
-            <FontAwesome5
-              name="file-image"
-              size={16}
-              color={theme.colors.white}
-            />
-          }
-        />
+        <PickFileContainer>
+          <ButtonWithLeftIcon
+            text="Adicionar Imagem"
+            width="54%"
+            color={theme.colors.white}
+            bgColor={theme.colors.blackOpacity4}
+            paddingVeritcal="4px"
+            justifyContent="flex-start"
+            fontSize="12px"
+            gap="8px"
+            icon={
+              <FontAwesome5
+                name="file-image"
+                size={16}
+                color={theme.colors.white}
+              />
+            }
+            onPress={pickImageFromGallery}
+          />
+          <ButtonWithLeftIcon
+            text="Tire uma foto"
+            width="45%"
+            color={theme.colors.white}
+            bgColor={theme.colors.blackOpacity4}
+            paddingVeritcal="4px"
+            justifyContent="flex-start"
+            fontSize="12px"
+            gap="8px"
+            icon={
+              <Feather name="camera" size={16} color={theme.colors.white} />
+            }
+            onPress={takePhoto} // Tirar foto
+          />
+        </PickFileContainer>
+        {image && (
+          <SubTitle size="11px">Imagem selecionada com sucesso!</SubTitle>
+        )}
       </MidiaContainer>
+
       <FormContainer>
         <Controller
           control={control}
           name="descricao"
           rules={{ required: "Descrição é obrigatória" }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <TextArea
-                multiline={true}
-                numberOfLines={5}
-                maxLength={270}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-              {errors.descricao && (
-                <TextError>{errors.descricao.message}</TextError>
-              )}
-            </>
+            <TextArea
+              placeholder="Descrição"
+              multiline={true}
+              numberOfLines={5}
+              maxLength={270}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              errorMessage={errors.descricao?.message}
+            />
           )}
         />
       </FormContainer>
@@ -199,7 +367,7 @@ export default function DenunciaScreen() {
           color={theme.colors.white}
           width="100%"
           paddingHorizontal="20px"
-          onPress={handleSubmit(onSubmit)} // Submete o formulário
+          onPress={handleSubmit(onSubmit)}
         />
       </ButtonContainer>
     </Container>

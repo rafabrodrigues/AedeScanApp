@@ -5,9 +5,13 @@ export const InputPasswordContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid;
+  border-width: 2px;
   border-color: ${(props) =>
-    props.isFocused ? props.theme.colors.blueGray : props.theme.colors.gray};
+    props.hasError
+      ? props.theme.colors.red
+      : props.isFocused
+      ? props.theme.colors.blueGray
+      : props.theme.colors.gray};
   border-radius: 5px;
   padding-right: 8px;
 `;
@@ -21,12 +25,14 @@ export const InputPassword = styled.TextInput`
 
 export const Placeholder = styled.Text`
   position: absolute;
-  display: ${(props) => (props.isFocused || props.hasValue ? "flex" : "none")};
-  font-size: 14px;
+  display: ${(props) =>
+    props.hasError || props.isFocused || props.hasValue ? "flex" : "none"};
+  font-size: 12px;
   padding-right: 5px;
   padding-left: 5px;
   font-family: "Poppins_400Regular";
-  color: ${(props) => props.theme.colors.blueGray};
+  color: ${(props) =>
+    props.hasError ? props.theme.colors.red : props.theme.colors.blueGray};
   top: ${(props) => (props.isFocused ? "-10px" : "0")};
   left: 10px;
   font-size: ${(props) => (props.isFocused ? "12px" : "14px")};

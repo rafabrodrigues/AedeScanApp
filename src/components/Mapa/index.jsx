@@ -23,6 +23,7 @@ const Mapa = () => {
     const locationData = await getLocation();
     if (locationData) {
       setLocation(locationData);
+      console.log(bairros)
     }
   };
 
