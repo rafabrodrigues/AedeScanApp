@@ -10,7 +10,5 @@ export async function getUserId() {
     console.error("Erro ao obter o usuário:", error);
     return null;
   }
-
-  console.log("ID do usuário logado:", user.id);
   return user.id;
 }

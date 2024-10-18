@@ -31,12 +31,15 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Feather from "@expo/vector-icons/Feather";
 
 export default function DenunciaScreen() {
+  const [users, setUsers] = useState([]);
   const [image, setImage] = useState(null);
+
   const {
     control,
     handleSubmit,
     setValue,
     getValues,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -50,72 +53,76 @@ export default function DenunciaScreen() {
 
   const onSubmit = async (data) => {
     const userId = await getUserId();
-    const userIdC = "8f50ca7e-7918-4e88-9d91-4ba00fb888fd";
-    const { data: userData, error: userError } = await supabase
-      .from("tab_users")
-      .select("id_users")
-      .eq("id_users", userIdC)
-      .single();
+    let imageUrl = null;
 
-    if (userError) {
-      console.error("Erro ao buscar o usuário:", userError);
-    } else if (!userData) {
-      console.log("Usuário não encontrado.");
-    } else {
-      console.log("Usuário encontrado:", userData);
+    if (image) {
+      imageUrl = await uploadImage(image);
+      if (!imageUrl) {
+        console.log("Erro ao salvar imagem", imageUrl);
+
+        return;
+      }
     }
 
-    // let imageUrl = null;
+    // console.log("Inserting data:", {
+    //   cep_denuncia: data.cep,
+    //   bairro_denuncia: data.bairro,
+    //   rua_denuncia: data.rua,
+    //   numero_denuncia: data.numero,
+    //   descricao_denuncia: data.descricao,
+    //   foto_denuncia: imageUrl,
+    //   id_users_denuncia: userId,
+    // });
 
-    // if (image) {
-    //   imageUrl = await uploadImage(image);
-    //   if (!imageUrl) {
-    //     return;
-    //   }
-    // }
+    const { error: denunciaError } = await supabase
+      .from("tab_denuncias")
+      .insert([
+        {
+          cep_denuncia: data.cep,
+          bairro_denuncia: data.bairro,
+          rua_denuncia: data.rua,
+          numero_denuncia: data.numero,
+          descricao_denuncia: data.descricao,
+          foto_denuncia: imageUrl,
+          id_users_denuncia: userId,
+        },
+      ]);
 
-    // const { error } = await supabase.from("tab_denuncias").insert([
-    //   {
-    //     cep_denuncia: data.cep,
-    //     bairro_denuncia: data.bairro,
-    //     rua_denuncia: data.rua,
-    //     numero_denuncia: data.numero,
-    //     descricao_denuncia: data.descricao,
-    //     foto_denuncia: imageUrl,
-    //     id_users_denuncia: userId,
-    //   },
-    // ]);
-
-    // if (error) {
-    //   Alert.alert("Erro ao enviar a denúncia:", error.message);
-    // } else {
-    //   Alert.alert("Denúncia enviada com sucesso!");
-    // }
+    if (denunciaError) {
+      console.log("Supabase error:", denunciaError);
+      Alert.alert(
+        "Erro ao enviar a denúncia:",
+        denunciaError.message || "Erro desconhecido"
+      );
+    } else {
+      Alert.alert("Denúncia enviada com sucesso!");
+      reset();
+      setImage(null);
+    }
   };
 
   const uploadImage = async (uri) => {
     const fileName = uri.split("/").pop();
-    const { data, error } = await supabase.storage
+    const { data: uploadImage, error } = await supabase.storage
       .from("denuncias_bucket")
-      .upload(`images/${fileName}`, {
+      .upload(`denuncias/${fileName}`, {
         uri,
       });
-
     if (error) {
       Alert.alert("Erro ao fazer upload da imagem:", error.message);
       return null;
     }
 
-    const { publicURL, error: urlError } = supabase.storage
+    const { data: publicURL, error: urlError } = supabase.storage
       .from("denuncias_bucket")
-      .getPublicUrl(data.path);
-
+      .getPublicUrl(uploadImage.path);
+    console.log(uploadImage.path);
     if (urlError) {
       Alert.alert("Erro ao obter URL da imagem:", urlError.message);
       return null;
     }
 
-    return publicURL;
+    return publicURL.publicUrl;
   };
 
   const searchAddress = async (cep) => {
@@ -126,7 +133,6 @@ export default function DenunciaScreen() {
       } else {
         setValue("bairro", response.data.bairro);
         setValue("rua", response.data.logradouro);
-        console.log(image);
       }
     } catch (err) {
       Alert.alert("Erro", "Erro ao buscar o CEP");
@@ -263,7 +269,7 @@ export default function DenunciaScreen() {
             rules={{ required: "Rua é obrigatória" }}
             render={({ field: { onChange, onBlur, value } }) => (
               <InputSmooth
-                placeholder="Rua:"
+                placeholder="Rua"
                 placeholderTextColor="#999"
                 width="50%"
                 onChangeText={onChange}
