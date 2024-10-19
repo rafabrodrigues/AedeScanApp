@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Containerer = styled.View`
+export const Container = styled.View`
   background-color: ${(props) => props.theme.colors.darkBlue};
   flex: 1;
   align-items: center;

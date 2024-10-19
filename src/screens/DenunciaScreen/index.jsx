@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { supabase } from "../../Supabase/supabaseClient";
 import { getUserId } from "../../utils/getUserId";
 import { Alert } from "react-native";
@@ -21,6 +21,7 @@ import { Title } from "../../components/Title";
 import theme from "../../theme";
 import { SubTitle } from "../../components/SubTitle";
 import InputSmooth from "../../components/InputSmooth";
+import InputMaskSmooth from '../../components/InputMaskSmooth';
 import {
   ButtonWithLeftIcon,
   ButtonWithRightIcon,
@@ -29,6 +30,7 @@ import { TextArea } from "../../components/TextArea";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Feather from "@expo/vector-icons/Feather";
+
 
 export default function DenunciaScreen() {
   const [users, setUsers] = useState([]);
@@ -208,7 +210,7 @@ export default function DenunciaScreen() {
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <InputSmooth
+              <InputMaskSmooth
                 placeholder="Digite o CEP:"
                 placeholderTextColor="#999"
                 width="72%"
@@ -218,6 +220,7 @@ export default function DenunciaScreen() {
                 maxLength={9}
                 keyboardType="numeric"
                 errorMessage={errors.cep?.message}
+                type='zip-code'
               />
             )}
           />

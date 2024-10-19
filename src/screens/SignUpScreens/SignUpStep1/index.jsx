@@ -14,14 +14,11 @@ import InputSmooth from "../../../components/InputSmooth";
 import InputPasswordSmooth from "../../../components/InputPasswordSmooth";
 import { ButtonWithRightIcon } from "../../../components/Button";
 import { Link, LinkText } from "../../../components/Link";
-import { TextError } from "../../../components/TextError";
 import { useNavigation } from "@react-navigation/native";
 import { theme } from "../../../theme/index";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Alert } from "react-native";
-
 
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
@@ -85,10 +82,10 @@ export default function SignUpStep1() {
               onChangeText={onChange}
               value={value}
               bgColor="#fff"
+              errorMessage={errors.email?.message}
             />
           )}
         />
-        {errors.email && <TextError>{errors.email.message}</TextError>}
 
         <Controller
           control={control}
@@ -98,10 +95,10 @@ export default function SignUpStep1() {
               placeholder="Senha"
               onChangeText={onChange}
               value={value}
+              errorMessage={errors.password?.message}
             />
           )}
         />
-        {errors.password && <TextError>{errors.password.message}</TextError>}
 
         <Controller
           control={control}
@@ -111,12 +108,10 @@ export default function SignUpStep1() {
               placeholder="Confirme sua senha"
               onChangeText={onChange}
               value={value}
+              errorMessage={errors.confirmPassword?.message}
             />
           )}
         />
-        {errors.confirmPassword && (
-          <TextError>{errors.confirmPassword.message}</TextError>
-        )}
       </FormContainer>
       <ButtonContainer>
         <ButtonWithRightIcon

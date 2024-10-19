@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
-import { Containerer, Texto } from './styles';
+import { Container } from "./styles";
+import { Input } from "../../components/Input";
 export default function PerfilScreen() {
+  const [phone, setPhone] = useState("");
   return (
-    <View><Text>Aviso</Text></View>
+    <Container>
+      
+    </Container>
   );
 }

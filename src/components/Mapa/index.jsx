@@ -70,8 +70,20 @@ const Mapa = () => {
               }}
               radius={600}
               strokeWidth={2}
-              strokeColor="rgba(0, 0, 255, 0.5)"
-              fillColor="rgba(0, 0, 255, 0.2)"
+              strokeColor={
+                bairro.casos_bairro > 30
+                  ? "#FF0000"
+                  : bairro.casos_bairro < 15
+                  ? "#008000"
+                  : "#EEAD2D"
+              }
+              fillColor={
+                bairro.casos_bairro > 30
+                  ? "#ff00003d"
+                  : bairro.casos_bairro < 15
+                  ? "#0080004c"
+                  : "#eeae2d65"
+              }
             />
           </View>
         ))}

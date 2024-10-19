@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
+import { TextInputMask } from "react-native-masked-text";
 export const InputContainer = styled.View`
   width: ${(props) => props.width || "100%"};
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled(TextInputMask)`
   font-family: "Poppins_400Regular";
   padding: 10px;
   border-width: 2px;

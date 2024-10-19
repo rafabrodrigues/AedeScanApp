@@ -13,11 +13,7 @@ import { Title } from "../../components/Title";
 import { StyledImage } from "../../components/StyledImage";
 import InputSmooth from "../../components/InputSmooth";
 import InputPasswordSmooth from "../../components/InputPasswordSmooth";
-import {
-  Button,
-  ButtonText,
-  ButtonWithRightIcon,
-} from "../../components/Button";
+import { ButtonWithRightIcon } from "../../components/Button";
 import { Link, LinkForgetPassword, LinkText } from "../../components/Link";
 import { SubTitle } from "../../components/SubTitle";
 import { SpaceBetween } from "../../components/Containers/SpaceBetween";
@@ -25,7 +21,6 @@ import { Controller, useForm } from "react-hook-form";
 
 import { supabase } from "../../Supabase/supabaseClient";
 import { useNavigation } from "@react-navigation/native";
-import { TextError } from "../../components/TextError";
 export default function SignInScreen() {
   const {
     control,

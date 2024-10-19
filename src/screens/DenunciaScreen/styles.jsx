@@ -54,6 +54,7 @@ export const ButtonContainer = styled.View`
 export const Container = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
     alignItems: "center",
+    paddingBottom:32
   },
 }))`
   background-color: ${(props) => props.theme.colors.darkBlue};

@@ -7,6 +7,7 @@ import {
   LinkContainer,
 } from "../styles";
 import InputSmooth from "../../../components/InputSmooth";
+import InputMaskSmooth from "../../../components/InputMaskSmooth";
 import { ButtonWithRightIcon } from "../../../components/Button";
 import { Link, LinkText } from "../../../components/Link";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -16,7 +17,6 @@ import * as yup from "yup";
 import { Alert } from "react-native";
 import { theme } from "../../../theme/index";
 import { StyledImage } from "../../../components/StyledImage/index";
-import { TextError } from "../../../components/TextError";
 import { supabase } from "../../../Supabase/supabaseClient";
 
 const schema = yup.object().shape({
@@ -88,10 +88,10 @@ export default function SignUpStep2() {
                 value={value}
                 bgColor="#fff"
                 width="40%"
+                errorMessage={errors.name?.message}
               />
             )}
           />
-          {errors.name && <TextError>{errors.name.message}</TextError>}
 
           <Controller
             control={control}
@@ -103,43 +103,47 @@ export default function SignUpStep2() {
                 value={value}
                 bgColor="#000"
                 width="58%"
+                errorMessage={errors.secondName?.message}
               />
             )}
           />
-          {errors.secondName && (
-            <TextError>{errors.secondName.message}</TextError>
-          )}
         </NameContainer>
 
         <Controller
           control={control}
           name="cpf"
           render={({ field: { onChange, value } }) => (
-            <InputSmooth
+            <InputMaskSmooth
               placeholder="CPF"
               onChangeText={onChange}
               value={value}
               bgColor="#fff"
+              keyboardType="numeric"
+              type="cpf"
+              maxLength={14}
+              errorMessage={errors.cpf?.message}
             />
           )}
         />
-        {errors.cpf && <TextError>{errors.cpf.message}</TextError>}
+        
 
         <Controller
           control={control}
           name="dateOfBirth"
           render={({ field: { onChange, value } }) => (
-            <InputSmooth
+            <InputMaskSmooth
               placeholder="Data de Nascimento"
               onChangeText={onChange}
               value={value}
               bgColor="#fff"
+              keyboardType="numeric"
+              maxLength={10}
+              type="datetime"
+              errorMessage={errors.dateOfBirth?.message}
             />
           )}
         />
-        {errors.dateOfBirth && (
-          <TextError>{errors.dateOfBirth.message}</TextError>
-        )}
+        
       </FormContainer>
       <ButtonContainer>
         <ButtonWithRightIcon

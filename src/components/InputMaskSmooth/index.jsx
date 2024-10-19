@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import React from "react";
 import { InputContainer, Input, Placeholder } from "./style";
 
-const InputSmooth = ({
+const InputMaskSmooth = ({
   placeholder,
   value,
   onChangeText,
@@ -11,12 +12,14 @@ const InputSmooth = ({
   multiline,
   numberOfLines,
   maxLength,
+  type,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
     <InputContainer width={width}>
       <Input
+        type={type}
         value={value}
         onChangeText={onChangeText}
         onFocus={() => setIsFocused(true)}
@@ -40,4 +43,4 @@ const InputSmooth = ({
   );
 };
 
-export default InputSmooth;
+export default InputMaskSmooth;
