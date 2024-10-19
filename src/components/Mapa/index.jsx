@@ -4,26 +4,29 @@ import { ContainerMapView, StyledMapView } from "./style";
 import { Circle, Marker } from "react-native-maps";
 import { supabase } from "./../../Supabase/supabaseClient";
 import { getLocation } from "../../utils/getLocation";
+import Loading from "../../screens/Loading";
 
 const Mapa = () => {
   const [bairros, setBairro] = useState([]);
   const [location, setLocation] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(true);
   const fetchBairros = async () => {
+    setIsLoading(true);
     const { data, error } = await supabase.from("tab_bairros").select();
 
     if (error) {
       alert("Erro ao buscar dados dos bairros:", error);
+      setIsLoading(false);
       return;
     }
     setBairro(data);
+    setIsLoading(false);
   };
 
   const fetchLocation = async () => {
     const locationData = await getLocation();
     if (locationData) {
       setLocation(locationData);
-      console.log(bairros)
     }
   };
 
@@ -32,6 +35,9 @@ const Mapa = () => {
     fetchLocation();
   }, []);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   if (!location) {
     return <StyledMapView />;
   }

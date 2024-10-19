@@ -116,7 +116,6 @@ export default function DenunciaScreen() {
     const { data: publicURL, error: urlError } = supabase.storage
       .from("denuncias_bucket")
       .getPublicUrl(uploadImage.path);
-    console.log(uploadImage.path);
     if (urlError) {
       Alert.alert("Erro ao obter URL da imagem:", urlError.message);
       return null;

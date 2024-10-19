@@ -22,6 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Alert } from "react-native";
 
+
 const schema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup

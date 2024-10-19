@@ -1,17 +1,13 @@
-import { StyleSheet } from 'react-native';
+import styled from "styled-components/native";
 
-const styles = StyleSheet.create({
-    container:{
-        backgroundColor:'#2b2d42',
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    text:{
-        color: '#fff',
-        fontSize:20,
-        fontWeight:'800'
-    }
-});
+export const Container = styled.View`
+  align-items: center;
+  justify-content: center;
+  padding-top: 48px; 
+  background-color: ${(props) => props.theme.colors.darkBlue};
+  flex: 1;
+`;
 
-export default styles;
+export const QuestionList = styled.FlatList`
+
+`;
