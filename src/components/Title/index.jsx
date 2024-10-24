@@ -6,3 +6,4 @@ export const Title = styled.Text`
   font-family: "Poppins_700Bold";
   width: ${(props) => props.width};
 `;
+

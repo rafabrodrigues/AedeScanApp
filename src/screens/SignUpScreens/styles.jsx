@@ -17,11 +17,18 @@ export const FormContainer = styled.View`
   gap: 10px;
 `;
 
+export const AvatarContainer = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const NameContainer = styled.View`
   width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-top: 16px;
 `;
 
 export const ButtonContainer = styled.View`

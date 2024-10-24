@@ -33,7 +33,7 @@ const Mapa = () => {
   useEffect(() => {
     fetchBairros();
     fetchLocation();
-  }, []);
+  }, [0]);
 
   if (isLoading) {
     return <Loading />;

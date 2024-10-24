@@ -8,6 +8,5 @@ export const getLocation = async () => {
   }
 
   let locationData = await Location.getCurrentPositionAsync({});
-  console.log(locationData);
   return locationData.coords;
 };

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   FormContainer,
   NameContainer,
   ButtonContainer,
   LinkContainer,
+  AvatarContainer,
 } from "../styles";
+import PickImage from "../../../components/PickImage";
+import UploadAvatar from "./../../../components/UploadAvatar/index.";
+import { SubTitle } from "../../../components/SubTitle";
 import InputSmooth from "../../../components/InputSmooth";
 import InputMaskSmooth from "../../../components/InputMaskSmooth";
 import { ButtonWithRightIcon } from "../../../components/Button";
@@ -16,16 +20,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Alert } from "react-native";
 import { theme } from "../../../theme/index";
-import { StyledImage } from "../../../components/StyledImage/index";
 import { supabase } from "../../../Supabase/supabaseClient";
-
 const schema = yup.object().shape({
   name: yup.string().required("Nome é obrigatório"),
   secondName: yup.string().required("Sobrenome é obrigatório"),
   cpf: yup
     .string()
     .required("CPF é obrigatório")
-    .matches(/^\d{11}$/, "CPF inválido"),
+    .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, "CPF inválido"),
   dateOfBirth: yup
     .string()
     .required("Data de nascimento é obrigatória")
@@ -36,6 +38,8 @@ export default function SignUpStep2() {
   const navigation = useNavigation();
   const route = useRoute();
   const { email, password } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [image, setImage] = useState(null);
 
   const {
     control,
@@ -52,31 +56,126 @@ export default function SignUpStep2() {
   });
 
   const handleSignUp = async (data) => {
-    const { name, secondName, cpf, dateOfBirth } = data;
-    const fullName = `${name} ${secondName}`;
-    const { error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          fullName,
-          cpf,
-          dateOfBirth,
-        },
-      },
+    try {
+      const { name, secondName, cpf, dateOfBirth } = data;
+      const fullName = `${name} ${secondName}`;
+
+      const { user, error: signUpError } = await signUpUser({
+        email: email,
+        password: password,
+      });
+
+      if (signUpError) {
+        return showAlert("Erro", signUpError.message);
+      }
+
+      let imageUrl = null;
+      if (image) {
+        imageUrl = await uploadAvatar(image);
+        if (!imageUrl) {
+          return console.log("Erro ao salvar imagem");
+        }
+      }
+
+      const { error: insertError } = await insertUserData({
+        id: user.id,
+        fullName,
+        email,
+        imageUrl,
+        cpf,
+        dateOfBirth,
+      });
+
+      if (insertError) {
+        return showAlert("Erro", insertError.message);
+      }
+
+      showAlert("Sucesso", "Verifique seu e-mail para confirmar o cadastro!");
+      navigation.navigate("signInStack");
+    } catch (error) {
+      console.error("Erro no processo de cadastro:", error);
+      showAlert("Erro", "Ocorreu um erro inesperado.");
+    }
+  };
+
+  const signUpUser = async ({ email, password }) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
     });
 
-    if (error) {
-      Alert.alert("Erro", error.message);
-    } else {
-      Alert.alert("Sucesso", "Verifique seu e-mail para confirmar o cadastro!");
-      navigation.navigate("signInStack");
+    return { user: data?.user, error };
+  };
+
+  const insertUserData = async ({
+    id,
+    fullName,
+    email,
+    imageUrl,
+    cpf,
+    dateOfBirth,
+  }) => {
+    const { error } = await supabase.from("tab_users").insert([
+      {
+        id_users: id,
+        name_users: fullName,
+        email_users: email,
+        avatar_url_users: imageUrl,
+        cpf_users: cpf,
+        date_birth_users: dateOfBirth,
+      },
+    ]);
+
+    return { error };
+  };
+
+  const uploadAvatar = async (uri) => {
+    try {
+      const fileName = uri.split("/").pop();
+
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("avatars_bucket")
+        .upload(`denuncias/${fileName}`, { uri });
+
+      if (uploadError) {
+        throw new Error(uploadError.message);
+      }
+
+      const { data: urlData, error: urlError } = await supabase.storage
+        .from("avatars_bucket")
+        .getPublicUrl(uploadData.path);
+
+      if (urlError) {
+        throw new Error(urlError.message);
+      }
+
+      return urlData.publicUrl;
+    } catch (error) {
+      console.error("Erro no upload do avatar:", error);
+      return null;
     }
+  };
+
+  const showAlert = (title, message) => {
+    Alert.alert(title, message);
   };
 
   return (
     <Container>
+      <PickImage
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        setImage={setImage}
+        setModalVisible={setModalVisible}
+      />
       <FormContainer>
+        <AvatarContainer>
+          <UploadAvatar onPress={() => setModalVisible(true)} image={image} />
+          {image && (
+            <SubTitle size="11px">Imagem selecionada com sucesso!</SubTitle>
+          )}
+        </AvatarContainer>
+
         <NameContainer>
           <Controller
             control={control}
@@ -125,7 +224,6 @@ export default function SignUpStep2() {
             />
           )}
         />
-        
 
         <Controller
           control={control}
@@ -143,7 +241,6 @@ export default function SignUpStep2() {
             />
           )}
         />
-        
       </FormContainer>
       <ButtonContainer>
         <ButtonWithRightIcon

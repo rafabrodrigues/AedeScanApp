@@ -21,7 +21,7 @@ import { Title } from "../../components/Title";
 import theme from "../../theme";
 import { SubTitle } from "../../components/SubTitle";
 import InputSmooth from "../../components/InputSmooth";
-import InputMaskSmooth from '../../components/InputMaskSmooth';
+import InputMaskSmooth from "../../components/InputMaskSmooth";
 import {
   ButtonWithLeftIcon,
   ButtonWithRightIcon,
@@ -30,7 +30,6 @@ import { TextArea } from "../../components/TextArea";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import Feather from "@expo/vector-icons/Feather";
-
 
 export default function DenunciaScreen() {
   const [users, setUsers] = useState([]);
@@ -65,16 +64,6 @@ export default function DenunciaScreen() {
         return;
       }
     }
-
-    // console.log("Inserting data:", {
-    //   cep_denuncia: data.cep,
-    //   bairro_denuncia: data.bairro,
-    //   rua_denuncia: data.rua,
-    //   numero_denuncia: data.numero,
-    //   descricao_denuncia: data.descricao,
-    //   foto_denuncia: imageUrl,
-    //   id_users_denuncia: userId,
-    // });
 
     const { error: denunciaError } = await supabase
       .from("tab_denuncias")
@@ -115,7 +104,7 @@ export default function DenunciaScreen() {
       return null;
     }
 
-    const { data: publicURL, error: urlError } = supabase.storage
+    const { data: urlData, error: urlError } = supabase.storage
       .from("denuncias_bucket")
       .getPublicUrl(uploadImage.path);
     if (urlError) {
@@ -123,7 +112,9 @@ export default function DenunciaScreen() {
       return null;
     }
 
-    return publicURL.publicUrl;
+    const { publicUrl } = urlData;
+
+    return publicUrl;
   };
 
   const searchAddress = async (cep) => {
@@ -220,7 +211,7 @@ export default function DenunciaScreen() {
                 maxLength={9}
                 keyboardType="numeric"
                 errorMessage={errors.cep?.message}
-                type='zip-code'
+                type="zip-code"
               />
             )}
           />
@@ -341,7 +332,7 @@ export default function DenunciaScreen() {
             icon={
               <Feather name="camera" size={16} color={theme.colors.white} />
             }
-            onPress={takePhoto} // Tirar foto
+            onPress={takePhoto} 
           />
         </PickFileContainer>
         {image && (

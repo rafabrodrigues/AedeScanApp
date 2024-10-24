@@ -26,6 +26,7 @@ export default function TabRoutes() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
+    console.log(session);
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
@@ -112,7 +113,7 @@ export default function TabRoutes() {
       />
       <Tab.Screen
         name="perfil"
-        component={session ? PerfilScreen : LoginScreen}
+        component={ session ? PerfilScreen : LoginScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome6 name="circle-user" color={color} size={22} />

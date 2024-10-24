@@ -64,12 +64,12 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <View style={{ flex: 1, backgroundColor: theme.colors.darkBlue }}>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Splash onFinish={() => setIsLoading(false)} />
         ) : (
           <Routes />
-        )}
-        {/* <Routes /> */}
+        )} */}
+        <Routes />
       </View>
     </ThemeProvider>
   );
