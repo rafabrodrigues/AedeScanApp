@@ -12,11 +12,17 @@ import { ButtonWithLeftIcon } from "../../components/Button";
 import { TouchableOpacity } from "react-native";
 import theme from "../../theme";
 import { useNavigation } from "@react-navigation/native";
+
 import { supabase } from "./../../Supabase/supabaseClient";
+import { getUserById } from "./../../Supabase/getUserById";
+
 import { getUserId } from "../../utils/getUserId";
+import { formatDate } from "../../utils/formatDate";
+
 import Loading from "../Loading";
 import { useAuth } from "../../hooks/useAuth";
 import LoginScreen from "../LoginScreen";
+
 export default function PerfilScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
@@ -27,42 +33,24 @@ export default function PerfilScreen() {
   const [dateBirth, setDateBirth] = useState("");
   const navigation = useNavigation();
 
-  async function getUserById(userId) {
-    const { data, error } = await supabase
-      .from("tab_users")
-      .select("*")
-      .eq("id_users", userId);
-
-    if (error) {
-      console.error("Erro ao buscar o usuário:", error);
-      return null;
-    }
-
-    console.log("Dados do usuário:", data);
-
-    return data;
-  }
-
-  const fetchUser = async () => {
+  const fetchUser = async ({id}) => {
+    console.log("ID ", id)
     setIsLoading(true);
-    const user = await supabase.auth.getUser();
-    setUser(user);
-    if (user) {
       const userData = await getUserById(
-        "8f50ca7e-7918-4e88-9d91-4ba00fb888fd"
+        id
       );
+
+      console.log(userData)
 
       if (userData) {
         setName(userData[0].name_users);
         setEmail(userData[0].email_users);
         setCpf(userData[0].cpf_users);
+        setDateBirth(userData[0].date_birth_users);
         console.log("Usuário carregado:", { name, email, cpf });
       } else {
         console.log("Usuário não encontrado.");
       }
-    } else {
-      console.log("Usuário não autenticado.");
-    }
     setIsLoading(false);
   };
 
@@ -78,24 +66,37 @@ export default function PerfilScreen() {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    function handleGetUser() {
+      console.log("handleGetUser");
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          console.log('Session L79: ', session)
+          setSession(session);
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-    console.log('Session:', session)
-    if (session) {
-      fetchUser();
+          setUser(fetchUser({id: session.user.id}));
+        })
+        .catch(e => console.log(e));
+
+      // supabase.auth.onAuthStateChange((_event, session) => {
+      //   setSession(session);
+      // });
+      //console.log('Supabase: ', supabase)
+    
+        // console.log('Session L92:', session)
+        // if (session) {
+          
+        // }
     }
+
+    handleGetUser();
   }, []);
-  if (isLoading) {
+
+  if (isLoading || !user) {
     return <Loading />;
   }
 
   return (
     <Container>
+    
       <IdentifierContainer>
         <Avatar.Image
           size={128}
@@ -137,8 +138,8 @@ export default function PerfilScreen() {
           )}
         />
         <Card.Title
-          title="Data de nascimento"
-          subtitle="12/08/2006"
+          title="Data de nascimen"
+          subtitle={formatDate(dateBirth)}
           style={style.cardStyle}
           titleStyle={style.titleStyle}
           subtitleStyle={style.subtitleStyle}
